@@ -7,7 +7,7 @@ namespace Mini.GlobalProvider.Utils
 {
     public static class JsonHelper
     {
-        public static T ReadFileOrDefault<T>(string filename)
+        public static T? ReadFileOrDefault<T>(string? filename = null)
         {
             if (!File.Exists(filename))
             {
@@ -27,7 +27,7 @@ namespace Mini.GlobalProvider.Utils
                 });
         }
 
-        public static dynamic ReadFileOrDefault(Type type, string filename)
+        public static dynamic? ReadFileOrDefault(Type type, string filename)
         {
             if (!File.Exists(filename))
             {

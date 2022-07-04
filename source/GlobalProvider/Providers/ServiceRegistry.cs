@@ -204,8 +204,8 @@ namespace Mini.GlobalProvider
 
 
         public static bool TryGetService<T>(
-            out T serviceInstance,
-            string name = null) where T : IService
+            out T? serviceInstance,
+            string? name = null) where T : IService
         {
             return TryGetService<T>(
                 out serviceInstance,
@@ -214,9 +214,9 @@ namespace Mini.GlobalProvider
         }
 
         public static bool TryGetService<T>(
-            out T serviceInstance,
-            out IServiceRegistrar registrar,
-            string name = null) where T : IService
+            out T? serviceInstance,
+            out IServiceRegistrar? registrar,
+            string? name = null) where T : IService
         {
             Type interfaceType = typeof(T);
 
@@ -234,9 +234,9 @@ namespace Mini.GlobalProvider
         }
 
         public static bool TryGetService<T>(Type interfaceType, 
-            out IService serviceInstance,
-            out IServiceRegistrar registrar, 
-            string name = null)
+            out IService? serviceInstance,
+            out IServiceRegistrar? registrar, 
+            string? name = null)
         {
             if (!typeof(IService).IsAssignableFrom(interfaceType))
             {
@@ -252,9 +252,9 @@ namespace Mini.GlobalProvider
         // private static readonly ProfilerMarker TryGetServiceInternalPerfMarker = new ProfilerMarker("[MRTK] MixedRealityServiceRegistry.TryGetServiceInternal");
 
         private static bool TryGetServiceInternal(Type interfaceType,
-            out IService serviceInstance,
-            out IServiceRegistrar registrar,
-            string name = null)
+            out IService? serviceInstance,
+            out IServiceRegistrar? registrar,
+            string? name = null)
         {
             //using (TryGetServiceInternalPerfMarker.Auto())
             //{
@@ -289,8 +289,8 @@ namespace Mini.GlobalProvider
         private static bool FindEntry(List<KeyValuePair<IService, IServiceRegistrar>> serviceList,
             Type interfaceType,
             string name,
-            out IService serviceInstance,
-            out IServiceRegistrar registrar)
+            out IService? serviceInstance,
+            out IServiceRegistrar? registrar)
         {
             //using (FindEntryPerfMarker.Auto())
             //{

@@ -7,9 +7,9 @@ namespace Mini.GlobalProvider
 {
     public class NotifiableBase : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetProperty<T>(ref T? storage, T value, [CallerMemberName] string? propertyName = null)
         {
             if (Equals(storage, value))
             {
@@ -20,7 +20,7 @@ namespace Mini.GlobalProvider
             return true;
         }
 
-        protected bool SetObservableProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null) where T : INotifyPropertyChanged
+        protected bool SetObservableProperty<T>(ref T? storage, T value, [CallerMemberName] string? propertyName = null) where T : INotifyPropertyChanged
         {
             if (Equals(storage, value))
             {
@@ -38,7 +38,7 @@ namespace Mini.GlobalProvider
             return result;
         }
 
-        protected bool SetCollectionProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null) where T : INotifyCollectionChanged
+        protected bool SetCollectionProperty<T>(ref T? storage, T value, [CallerMemberName] string? propertyName = null) where T : INotifyCollectionChanged
         {
             if (storage != null)
             {
@@ -52,7 +52,7 @@ namespace Mini.GlobalProvider
             return result;
         }
 
-        protected void RaisePropertyChangedEvent([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChangedEvent([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

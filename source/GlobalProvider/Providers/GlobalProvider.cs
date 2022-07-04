@@ -17,7 +17,7 @@ namespace Mini.GlobalProvider
 
         protected GlobalProvider() {}
 
-        public static dynamic Context(object? context = null)
+        public static new dynamic Context(object? context = null)
         {
             return Instance.Context(context);
         }
@@ -28,7 +28,7 @@ namespace Mini.GlobalProvider
             return Instance;
         }
 
-        public static new bool UnregisterService<TService>(string name = null) where TService : IService
+        public static new bool UnregisterService<TService>(string? name = null) where TService : IService
         {
             // TODO:
 
@@ -41,16 +41,16 @@ namespace Mini.GlobalProvider
             return Instance.UnregisterService(serviceInstance);
         }
 
-        public static new bool IsServiceRegistered<TService>(string name = null) where TService : IService
+        public static new bool IsServiceRegistered<TService>(string? name = null) where TService : IService
         {
             return Instance.IsServiceRegistered<TService>(name);
         }
 
-        public static new TService GetService<TService>(string name = null, bool showLogs = true) where TService : IService
+        public static new TService GetService<TService>(string? name = null, bool showLogs = true) where TService : IService
         {
             return Instance.GetService<TService>(name, showLogs);
         }
-        public static new IReadOnlyList<TService> GetServices<TService>(string name = null) where TService : IService
+        public static new IReadOnlyList<TService> GetServices<TService>(string? name = null) where TService : IService
         {
             return Instance.GetServices<TService>(name);
         }

@@ -41,14 +41,14 @@ namespace Mini.GlobalProvider
 
     public class Notifiable : INotified
     {
-        public event NotifiedEventHandler Notified;
+        public event NotifiedEventHandler? Notified;
 
         protected void Notify(object? sender, NotifiedEventArgs eventArgs)
         {
             Notified?.Invoke(this, eventArgs);
         }
 
-        protected void Notify([CallerMemberName] string propertyName = null)
+        protected void Notify([CallerMemberName] string? propertyName = null)
         {
             Notified?.Invoke(this, new NotifiedEventArgs(NotifiedEventType.PropertyChanged, propertyName));
         }
@@ -70,7 +70,7 @@ namespace Mini.GlobalProvider
             }
         }
 
-        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? propertyName = null)
         {
             if (Equals(storage, value))
             {
@@ -81,7 +81,7 @@ namespace Mini.GlobalProvider
             return true;
         }
 
-        protected bool SetObservableProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null) where T : INotified
+        protected bool SetObservableProperty<T>(ref T? storage, T value, [CallerMemberName] string? propertyName = null) where T : INotified
         {
             if (Equals(storage, value))
             {
@@ -99,7 +99,7 @@ namespace Mini.GlobalProvider
             return result;
         }
 
-        protected bool SetCollectionProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null) where T : INotifyCollectionChanged
+        protected bool SetCollectionProperty<T>(ref T? storage, T value, [CallerMemberName] string? propertyName = null) where T : INotifyCollectionChanged
         {
             if (storage != null)
             {
@@ -113,7 +113,7 @@ namespace Mini.GlobalProvider
             return result;
         }
 
-        protected bool SetObservablePropertyWithoutNotify<T>(ref T storage, T value, [CallerMemberName] string propertyName = null) where T : INotified
+        protected bool SetObservablePropertyWithoutNotify<T>(ref T? storage, T value, [CallerMemberName] string? propertyName = null) where T : INotified
         {
             if (Equals(storage, value))
             {
@@ -131,7 +131,7 @@ namespace Mini.GlobalProvider
             return true;
         }
 
-        protected bool SetObservablePropertyWithoutNotify(ref dynamic storage, dynamic value, [CallerMemberName] string propertyName = null) 
+        protected bool SetObservablePropertyWithoutNotify(ref dynamic storage, dynamic value, [CallerMemberName] string? propertyName = null) 
         {
             if (Equals(storage, value))
             {

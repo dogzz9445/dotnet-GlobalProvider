@@ -13,9 +13,9 @@ namespace Mini.GlobalProvider
     public class JsonConfigurationService : BaseService, IConfigurationService
     {
         private string? _fullFileName;
+        public string? FullFileName { get => _fullFileName; set => _fullFileName = value; }
         private bool _isAutoSave = true;
 
-        public string FullFileName { get => _fullFileName; set => _fullFileName = value; }
         public bool IsAutoSave { get => _isAutoSave; set => _isAutoSave = value; }
 
         public JsonConfigurationService(string? fileName = null) : base()

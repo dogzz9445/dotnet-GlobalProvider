@@ -17,7 +17,7 @@ namespace Mini.GlobalProvider
         public abstract static IReadOnlyList<TService> GetServices<TService>(string name = null) where TService : IService;
     }
 
-    public interface IGlobalProvider //<T> where T : class, INotified, new()
+    public interface IGlobalProvider
     {
         public abstract static dynamic Context(object? context = null);
         public abstract static IProvider AddListener(NotifiedEventHandler handler);

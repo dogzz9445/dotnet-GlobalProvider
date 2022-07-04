@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Newtonsoft.Json;
 
 #nullable enable
 namespace Mini.GlobalProvider
@@ -74,7 +73,7 @@ namespace Mini.GlobalProvider
 
         // TODO:
         // 확인 필요
-        public TService GetService<TService>() where TService : IService
+        public TService? GetService<TService>() where TService : IService
         {
             Type serviceType = typeof(TService);
 
@@ -100,7 +99,7 @@ namespace Mini.GlobalProvider
         }
 
         /// <inheritdoc />
-        public TService GetService<TService>(string name = null, bool showLogs = true) where TService : IService
+        public TService? GetService<TService>(string? name = null, bool showLogs = true) where TService : IService
         {
             TService serviceInstance = FindService<TService>(name);
 
@@ -113,7 +112,7 @@ namespace Mini.GlobalProvider
         }
 
         /// <inheritdoc />
-        public IReadOnlyList<TServices> GetServices<TServices>(string name = null) where TServices : IService
+        public IReadOnlyList<TServices> GetServices<TServices>(string? name = null) where TServices : IService
         {
             Type interfaceType = typeof(TServices);
             List<TServices> matchingServices = new List<TServices>();
@@ -140,7 +139,7 @@ namespace Mini.GlobalProvider
         }
 
         /// <inheritdoc />
-        public bool IsServiceRegistered<TService>(string name = null) where TService : IService
+        public bool IsServiceRegistered<TService>(string? name = null) where TService : IService
         {
             return (GetService<TService>(name) != null);
         }
@@ -170,7 +169,7 @@ namespace Mini.GlobalProvider
         }
 
         /// <inheritdoc />
-        public bool UnregisterService<TService>(string name = null) where TService : IService
+        public bool UnregisterService<TService>(string? name = null) where TService : IService
         {
             TService serviceInstance = FindService<TService>(name);
 
@@ -183,7 +182,7 @@ namespace Mini.GlobalProvider
         }
 
         /// <inheritdoc />
-        public bool UnregisterService<TService>(TService serviceInstance) where TService : IService
+        public bool UnregisterService<TService>(TService? serviceInstance) where TService : IService
         {
             if (serviceInstance == null) { return false; }
 
@@ -201,7 +200,7 @@ namespace Mini.GlobalProvider
         /// <typeparam name="T">The interface type of the service to locate.</typeparam>
         /// <param name="name">The name of the desired service.</param>
         /// <returns>Instance of the interface type, or null if not found.</returns>
-        private TService FindService<TService>(string name = null) where TService : IService
+        private TService FindService<TService>(string? name = null) where TService : IService
         {
             Type interfaceType = typeof(TService);
             WeakReference<IService> serviceInstance;

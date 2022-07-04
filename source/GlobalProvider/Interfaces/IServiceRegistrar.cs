@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,7 @@ namespace Mini.GlobalProvider
         /// <param name="name">The name of the service to unregister.</param>
         /// <returns>True if the service was successfully unregistered, false otherwise.</returns>
         /// <remarks>If the name argument is not specified, the first instance will be unregistered</remarks>
-        bool UnregisterService<T>(string name = null) where T : IService;
+        bool UnregisterService<T>(string? name = null) where T : IService;
 
         /// <summary>
         /// Unregisters a service.
@@ -52,7 +53,7 @@ namespace Mini.GlobalProvider
         /// <typeparam name="T">The interface type of the service (ex: IMixedRealityBoundarySystem).</typeparam>
         /// <param name="name">The name of the service.</param>
         /// <returns>True if the service is registered, false otherwise.</returns>
-        bool IsServiceRegistered<T>(string name = null) where T : IService;
+        bool IsServiceRegistered<T>(string? name = null) where T : IService;
 
         /// <summary>
         /// Gets the instance of the registered service.
@@ -61,7 +62,7 @@ namespace Mini.GlobalProvider
         /// <param name="name">The name of the service.</param>
         /// <param name="showLogs">Indicates whether or not diagnostic logging should be performed in case of an error</param>
         /// <returns>The registered service instance as the requested type.</returns>
-        T GetService<T>(string name = null, bool showLogs = true) where T : IService;
+        T GetService<T>(string? name = null, bool showLogs = true) where T : IService;
 
         /// <summary>
         /// Gets the collection of the registered service instances matching the requested type.
@@ -69,7 +70,7 @@ namespace Mini.GlobalProvider
         /// <typeparam name="T">The interface type of the service (ex: IMixedRealityBoundarySystem).</typeparam>
         /// <param name="name">Friendly name of the service.</param>
         /// <returns>Read-only collection of the service instances, as the requested type.</returns>
-        IReadOnlyList<T> GetServices<T>(string name = null) where T : IService;
+        IReadOnlyList<T> GetServices<T>(string? name = null) where T : IService;
 
     }
 }

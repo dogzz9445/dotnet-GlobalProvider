@@ -8,9 +8,8 @@ namespace Mini.GlobalProvider
 {
     public interface IVersionControlService : IService
     {
-        //public string RemoteVersion();
-        //public bool CheckVersion(string version);
-        //public bool Donwload(string url);
         void DownloadOrLoad<T>(string filename, out Dictionary<uint, T> map);
+        void Download<T>(string filename);
+        void Load<T>(string filename, out Dictionary<uint, T> map);
     }
 }
