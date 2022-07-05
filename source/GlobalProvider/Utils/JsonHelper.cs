@@ -1,12 +1,18 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+#if UNITY_ENGINE
 using Newtonsoft.Json;
+#else
+using System.Text.Json;
+using System.Text.Json.Serialization;
+#endif
 
 namespace Mini.GlobalProvider.Utils
 {
     public static class JsonHelper
     {
+#if UNITY_ENGINE
         public static T? ReadFileOrDefault<T>(string? filename = null)
         {
             if (!File.Exists(filename))
@@ -47,26 +53,6 @@ namespace Mini.GlobalProvider.Utils
                 });
         }
 
-        //public static T ReadFileOrDefault<T>(string filename) where T : NotifiableBase
-        //{
-        //    if (!File.Exists(filename))
-        //    {
-        //        return new T();
-        //    }
-        //    var json = File.ReadAllText(filename);
-        //    if (string.IsNullOrEmpty(json))
-        //    {
-        //        return new T();
-        //    }
-
-        //    return JsonConvert.DeserializeObject<T>(json,
-        //        new JsonSerializerSettings()
-        //        {
-        //            DefaultValueHandling = DefaultValueHandling.Populate,
-        //            NullValueHandling = NullValueHandling.Ignore
-        //        });
-        //}
-
         public static async Task WriteFileAsync<T>(string fullFileName, T jsonObject)
         {
             if (jsonObject == null)
@@ -92,6 +78,91 @@ namespace Mini.GlobalProvider.Utils
                 }
             }
         }
+#else
+        public static T? ReadFileOrDefault<T>(string? filename = null)
+        {
+            if (!File.Exists(filename))
+            {
+                return default(T);
+            }
+            var json = File.ReadAllText(filename);
+            if (string.IsNullOrEmpty(json))
+            {
+                return default(T);
+            }
+
+            return JsonSerializer.Deserialize<T>(json,
+                new JsonSerializerOptions()
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.Always,
+                    // WriteIndented = true,
+                });
+        }
+
+        public static dynamic? ReadFileOrDefault(Type type, string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                return default;
+            }
+            var json = File.ReadAllText(filename);
+            if (string.IsNullOrEmpty(json))
+            {
+                return default;
+            }
+
+            return JsonSerializer.Deserialize(json, type,
+                new JsonSerializerOptions()
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.Always
+                });
+        }
+
+        public static async Task WriteFileAsync<T>(string fullFileName, T jsonObject)
+        {
+            if (jsonObject == null)
+            {
+                return;
+            }
+            var directoryName = Path.GetDirectoryName(fullFileName);
+            if (!string.IsNullOrEmpty(directoryName))
+            {
+                if (!Directory.Exists(directoryName))
+                {
+                    Directory.CreateDirectory(directoryName);
+                }
+            }
+
+            string json = JsonSerializer.Serialize(jsonObject,
+                new JsonSerializerOptions()
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.Always,
+                    WriteIndented = true,
+                });
+            await File.WriteAllTextAsync(fullFileName, json);
+        }
+#endif
+
+        //public static T ReadFileOrDefault<T>(string filename) where T : NotifiableBase
+        //{
+        //    if (!File.Exists(filename))
+        //    {
+        //        return new T();
+        //    }
+        //    var json = File.ReadAllText(filename);
+        //    if (string.IsNullOrEmpty(json))
+        //    {
+        //        return new T();
+        //    }
+
+        //    return JsonConvert.DeserializeObject<T>(json,
+        //        new JsonSerializerSettings()
+        //        {
+        //            DefaultValueHandling = DefaultValueHandling.Populate,
+        //            NullValueHandling = NullValueHandling.Ignore
+        //        });
+        //}
+
         //public class EmptyStringConverter : JsonConverter<string>
         //{
         //    public override bool HandleNull => true;

@@ -6,9 +6,9 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 using Mini.GlobalProvider.Utils;
 using Mini.GlobalProvider.Extensions;
-using System.Net.Http.Headers;
 
 namespace Mini.GlobalProvider
 {
@@ -89,6 +89,16 @@ namespace Mini.GlobalProvider
             var json = LoadFromFile();
             // CheckVersion
             // RequestAPIAsync();
+        }
+
+        public void Download<T>(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Load<T>(string filename, out Dictionary<uint, T> map)
+        {
+            throw new NotImplementedException();
         }
     }
 }
